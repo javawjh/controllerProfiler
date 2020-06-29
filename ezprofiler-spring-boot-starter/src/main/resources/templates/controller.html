@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/js/jquery-3.4.1.js"></script>
+    <style type="text/css">
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size:11px;
+            color:#333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<!--${model}-->
+<p style="font-size:40px;color:#f10a0a;" id="noTitle" >暂无数据!!!</p>
+<table class="gridtable" id="tab" width="100%" style="font-size: 30px;">
+
+</table>
+
+</body>
+<script>
+    $.ajax({url:"/profiler",success:function(result){
+            console.info(result);
+            $.each(result,function(key,values){
+                $('#noTitle').hide();
+                // var html='<tr><td><a href="" onclick="openDetail(\''+key+'\')">'+key+'</a></td></tr>';
+                var html='<tr><td><a href="/profiler/controller/detail?key='+key+'">'+key+'</a></td></tr>';
+                $('#tab').append(html);
+                console.log(key);
+                $(values).each(function(){
+                    console.log("\t" + this.method);
+                });
+
+            });
+        }});
+
+
+</script>
+</html>
